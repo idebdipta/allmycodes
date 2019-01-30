@@ -1,0 +1,14 @@
+load llspectro6.txt
+x = llspectro6 (:,1);
+y = llspectro6 (:,2);
+[Peak, PeakIdx] = findpeaks(y);
+plot(x,y, 'cyan', 'Linewidth', 2)
+ylabel ('Intensity (Counts)')
+xlabel ('Wavelength (nm)')
+indexmin = find(min(y) == y);
+xmin = x(indexmin);
+ymin = y(indexmin);
+indexmax = find(max(y) == y);
+xmax = x(indexmax);
+ymax = y(indexmax);
+strmax = ['Maximum = ',num2str(xmax)];
