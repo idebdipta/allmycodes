@@ -1,0 +1,11 @@
+library("quantmod")
+getSymbols("SPY")
+#Stats of SPY
+spy = Delt(as.numeric(SPY$SPY.Adjusted), k=20)
+spy.mu= mean(spy, na.rm=TRUE)
+spy.sd= sd(spy, na.rm=TRUE)
+#Stats of SPY applied to Norm dist
+norm = rnorm(1000, mean=spy.mu, sd=spy.sd)
+#Visualize histograms
+hist(spy, main="SPY versus Normal Distribution", breaks=50, col="blue", freq = FALSE, probability=TRUE)
+hist(norm, col="yellow", breaks=50, add=T, freq = FALSE, probability=TRUE)
