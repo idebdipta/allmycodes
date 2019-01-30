@@ -1,0 +1,36 @@
+import numpy as np
+from mpl_toolkits.mplot3d import Axes3D 
+import matplotlib.pyplot as plt
+from matplotlib import cm
+
+from scipy.interpolate import griddata
+fig = plt.figure(figsize=plt.figaspect(0.5))
+ax = fig.add_subplot(1, 2, 1, projection='3d')
+# note this: you can skip rows!
+my_data = np.genfromtxt('odata.csv', delimiter=',',skip_header=1)
+X = my_data[:,0]
+Y = my_data[:,1]
+Z = my_data[:,2]
+
+xi = np.linspace(X.min(),X.max(),100)
+yi = np.linspace(Y.min(),Y.max(),100)
+# VERY IMPORTANT, to tell matplotlib how is your data organized
+zi = griddata((X, Y), Z, (xi[None,:], yi[:,None]), method='cubic')
+
+
+CS = plt.contour(xi,yi,zi,15,linewidths=0.5,cmap=cm.jet)
+ax = fig.add_subplot(1, 2, 2, projection='3d')
+
+xig, yig = np.meshgrid(xi, yi)
+
+surf = ax.plot_surface(xig, yig, zi,cmap=cm.jet,
+        linewidth=1)
+
+plt.xlabel('Offsets (S-K) from -200 to +200 w/ 100 point interval')
+plt.ylabel('Days |T-t*|')
+ax.set_zlabel('Option Value')
+fig.colorbar(surf, shrink=0.5, aspect=20)
+
+plt.title("Option Value v/s Time")
+
+plt.show()
