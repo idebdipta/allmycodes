@@ -1,0 +1,36 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.pylab as pylab
+params = {'legend.fontsize': 'x-large',
+          'figure.figsize': (40, 15),
+         'axes.labelsize': 'x-large',
+         'axes.titlesize':'x-large',
+         'xtick.labelsize':'x-large',
+         'ytick.labelsize':'x-large'}
+pylab.rcParams.update(params)
+
+fig = plt.figure(figsize=(16,10))
+
+# note this: you can skip rows!
+my_data = np.genfromtxt('adata.csv', delimiter=',',skip_header=1)
+x1 = my_data[:,1]
+y1 = my_data[:,6]
+y2 = my_data[:,7]
+y3 = my_data[:,8]
+y4 = my_data[:,9]
+y5 = my_data[:,10]
+
+
+plt.plot(x1,y1, label="Offset = 200", color = 'cornflowerblue', linewidth = '3')
+plt.plot(x1,y2, label="Offset = 100", color = 'lightskyblue', linewidth = '3')
+plt.plot(x1,y3, label="Offset = 0", color = 'thistle', linewidth = '3')
+plt.plot(x1,y4, label="Offset = -100", color = 'orchid', linewidth = '3')
+plt.plot(x1,y5, label="Offset = -200", color = 'blueviolet', linewidth = '3')
+
+plt.legend()
+
+plt.ylabel('Option Value')
+plt.xlabel('Days |T-t*|')
+plt.title("Option Value v/s Time")
+
+plt.show()
