@@ -1,0 +1,39 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.interpolate import interp1d
+
+fig = plt.figure(figsize=plt.figaspect(0.5))
+# note this: you can skip rows!
+my_data = np.genfromtxt('jcd3.csv', delimiter=',',skip_header=1)
+x = my_data[:,8]
+y = my_data[:,4]
+f = interp1d(x, y)
+f2 = interp1d(x, y, kind='cubic')
+
+# VERY IMPORTANT, to tell matplotlib how is your data organized
+xnew = np.linspace(-1000, 1000, num=120, endpoint=True)
+plt.plot(x, y, 'o', xnew, f(xnew), '-', xnew, f2(xnew), '--')
+plt.legend(['data', 'linear', 'cubic'], loc='best')
+plt.show()
+
+print (f2(1000))
+print (f2(900))
+print (f2(800))
+print (f2(700))
+print (f2(600))
+print (f2(500))
+print (f2(400))
+print (f2(300))
+print (f2(200))
+print (f2(100))
+print (f2(0))
+print (f2(-100))
+print (f2(-200))
+print (f2(-300))
+print (f2(-400))
+print (f2(-500))
+print (f2(-600))
+print (f2(-700))
+print (f2(-800))
+print (f2(-900))
+print (f2(-1000))
