@@ -4,24 +4,24 @@ from scipy.interpolate import interp1d
 
 fig = plt.figure(figsize=plt.figaspect(0.5))
 
-x_start, x_end = 2200, 2222   #column values (line number)
-y_start, y_end = 2200, 2222   #column values (line number)
+x_start, x_end = 530, 551   #column values (line number)
+y_start, y_end = 530, 551       #column values (line number)
 
 # note this: you can skip rows!
 
-x = np.genfromtxt('dec2017.csv', delimiter=',', usecols=(6))
-y = np.genfromtxt('dec2017.csv', delimiter=',', usecols=(4))
+x = np.genfromtxt('nov2017.csv', delimiter=',', usecols=(7))
+y = np.genfromtxt('nov2017.csv', delimiter=',', usecols=(4))
 
 
-x = x[x_start:x_end]
-y = y[y_start:y_end]
+x = x[x_start-1:x_end]
+y = y[y_start-1:y_end]
 
 
 f = interp1d(x, y)
 f2 = interp1d(x, y, kind='cubic')
 
 # VERY IMPORTANT, to tell matplotlib how is your data organized
-xnew = np.linspace(-900, 900, num=120, endpoint=True)
+xnew = np.linspace(-950, 950, num=120, endpoint=True)
 plt.plot(x, y, 'o', xnew, f(xnew), '-', xnew, f2(xnew), '--')
 plt.legend(['data', 'linear', 'cubic'], loc='best')
 plt.show()
