@@ -1,0 +1,49 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.interpolate import interp1d
+
+fig = plt.figure(figsize=plt.figaspect(0.5))
+
+x_start, x_end = 2200, 2222   #column values (line number)
+y_start, y_end = 2200, 2222   #column values (line number)
+
+# note this: you can skip rows!
+
+x = np.genfromtxt('dec2017.csv', delimiter=',', usecols=(6))
+y = np.genfromtxt('dec2017.csv', delimiter=',', usecols=(4))
+
+
+x = x[x_start:x_end]
+y = y[y_start:y_end]
+
+
+f = interp1d(x, y)
+f2 = interp1d(x, y, kind='cubic')
+
+# VERY IMPORTANT, to tell matplotlib how is your data organized
+xnew = np.linspace(-900, 900, num=120, endpoint=True)
+plt.plot(x, y, 'o', xnew, f(xnew), '-', xnew, f2(xnew), '--')
+plt.legend(['data', 'linear', 'cubic'], loc='best')
+plt.show()
+
+print (f2(1000))
+print (f2(900))
+print (f2(800))
+print (f2(700))
+print (f2(600))
+print (f2(500))
+print (f2(400))
+print (f2(300))
+print (f2(200))
+print (f2(100))
+print (f2(0))
+print (f2(-100))
+print (f2(-200))
+print (f2(-300))
+print (f2(-400))
+print (f2(-500))
+print (f2(-600))
+print (f2(-700))
+print (f2(-800))
+print (f2(-900))
+print (f2(-1000))
