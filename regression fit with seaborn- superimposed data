@@ -1,0 +1,46 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns; sns.set(color_codes=True)
+import matplotlib.pylab as pylab
+
+params = {'legend.fontsize': 'x-large',
+          'figure.figsize': (40, 15),
+         'axes.labelsize': 'x-large',
+         'axes.titlesize':'x-large',
+         'xtick.labelsize':'x-large',
+         'ytick.labelsize':'x-large'}
+pylab.rcParams.update(params)
+
+fig = plt.figure(figsize=(16,10))
+
+# note this: you can skip rows!
+my_data = np.genfromtxt('2017data200.csv', delimiter=',',skip_header=1)
+x1 = my_data[:,0]
+y1 = my_data[:,7]
+#y2 = my_data[:,8]
+#y3 = my_data[:,9]
+#y4 = my_data[:,10]
+#y5 = my_data[:,11]
+
+
+plt.scatter(x1,y1, label="Jul-Dec", color = 'orchid', linewidth = '3')
+#plt.scatter(x1,y2, label="Aug", color = 'lightskyblue', linewidth = '3')
+#plt.scatter(x1,y3, label="Sept", color = 'thistle', linewidth = '3')
+#plt.scatter(x1,y4, label="Nov", color = 'orchid', linewidth = '3')
+#plt.scatter(x1,y5, label="Dec", color = 'blueviolet', linewidth = '3')
+
+plt.legend()
+
+#ax = sns.regplot(x1, y1, x_bins=17)
+
+
+ax = sns.regplot(x1, y1, data=my_data, x_estimator=np.mean, logx=True, truncate=True)
+
+plt.ylabel('Option Value for offset 200')
+plt.xlabel('Days |T-t*|')
+plt.title("Option Value v/s Time")
+
+
+#plt.grid()
+plt.show()
+plt.plot(ax)
