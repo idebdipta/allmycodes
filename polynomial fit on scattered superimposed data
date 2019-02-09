@@ -1,0 +1,70 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import operator
+
+import matplotlib.pylab as pylab
+
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.preprocessing import PolynomialFeatures
+
+
+params = {'legend.fontsize': 'x-large',
+          'figure.figsize': (40, 15),
+         'axes.labelsize': 'x-large',
+         'axes.titlesize':'x-large',
+         'xtick.labelsize':'x-large',
+         'ytick.labelsize':'x-large'}
+pylab.rcParams.update(params)
+
+fig = plt.figure(figsize=(16,10))
+
+# note this: you can skip rows!
+my_data = np.genfromtxt('2017data200.csv', delimiter=',',skip_header=1)
+x1 = my_data[:,0]
+y1 = my_data[:,7]
+#y2 = my_data[:,8]
+#y3 = my_data[:,9]
+#y4 = my_data[:,10]
+#y5 = my_data[:,11]
+
+
+plt.scatter(x1,y1, label="Jul-Dec", color = 'orchid', linewidth = '3')
+#plt.scatter(x1,y2, label="Aug", color = 'lightskyblue', linewidth = '3')
+#plt.scatter(x1,y3, label="Sept", color = 'thistle', linewidth = '3')
+#plt.scatter(x1,y4, label="Nov", color = 'orchid', linewidth = '3')
+#plt.scatter(x1,y5, label="Dec", color = 'blueviolet', linewidth = '3')
+
+plt.legend()
+
+# transforming the data to include another axis
+x1 = x1[:, np.newaxis]
+y1 = y1[:, np.newaxis]
+
+
+
+polynomial_features= PolynomialFeatures(degree=3)
+x1_poly = polynomial_features.fit_transform(x1)
+
+model = LinearRegression()
+model.fit(x1_poly, y1)
+y1_poly_pred = model.predict(x1_poly)
+
+rmse = np.sqrt(mean_squared_error(y1,y1_poly_pred))
+r2 = r2_score(y1,y1_poly_pred)
+print(rmse)
+print(r2)
+
+
+sort_axis = operator.itemgetter(0)
+sorted_zip = sorted(zip(x1,y1_poly_pred), key=sort_axis)
+x1, y1_poly_pred = zip(*sorted_zip)
+plt.plot(x1, y1_poly_pred, color='black')
+
+plt.ylabel('Option Value for offset 200')
+plt.xlabel('Days |T-t*|')
+plt.title("Option Value v/s Time")
+
+
+plt.grid()
+plt.show()
