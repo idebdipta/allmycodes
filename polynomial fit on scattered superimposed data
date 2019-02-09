@@ -66,5 +66,5 @@ plt.xlabel('Days |T-t*|')
 plt.title("Option Value v/s Time")
 
 
-plt.grid()
+#plt.grid()
 plt.show()
