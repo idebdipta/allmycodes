@@ -55,6 +55,8 @@ r2 = r2_score(y1,y1_poly_pred)
 print(rmse)
 print(r2)
 
+#r2 should be as close to 1 (gives kinda confidence value
+#r2 is a measure of standard deviation
 
 sort_axis = operator.itemgetter(0)
 sorted_zip = sorted(zip(x1,y1_poly_pred), key=sort_axis)
