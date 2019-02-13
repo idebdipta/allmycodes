@@ -1,0 +1,133 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import operator
+
+import matplotlib.pylab as pylab
+
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.preprocessing import PolynomialFeatures
+
+
+params = {'legend.fontsize': 'x-large',
+          'figure.figsize': (40, 15),
+         'axes.labelsize': 'x-large',
+         'axes.titlesize':'x-large',
+         'xtick.labelsize':'x-large',
+         'ytick.labelsize':'x-large'}
+pylab.rcParams.update(params)
+
+fig = plt.figure(figsize=(16,10))
+
+# note this: you can skip rows!
+my_data = np.genfromtxt('200100combo.csv', delimiter=',',skip_header=1)
+x1 = my_data[:,0]
+x2 = my_data[:,2]
+x3 = my_data[:,4]
+x4 = my_data[:,6]
+x5 = my_data[:,8]
+
+y1 = my_data[:,1]
+y2 = my_data[:,3]
+y3 = my_data[:,5]
+y4 = my_data[:,7]
+y5 = my_data[:,9]
+
+plt.scatter(x1,y1, label="offset = 200", color = 'lavender', linewidth = '3')
+plt.scatter(x2,y2, label="offset = 100", color = 'azure', linewidth = '3')
+plt.scatter(x3,y3, label="offset = 0", color = 'snow', linewidth = '3')
+plt.scatter(x4,y4, label="offset = -100", color = 'lavenderblush', linewidth = '3')
+plt.scatter(x5,y5, label="offset = -200", color = 'beige', linewidth = '3')
+
+
+plt.legend()
+
+# transforming the data to include another axis
+x1 = x1[:, np.newaxis]
+x2 = x2[:, np.newaxis]
+x3 = x3[:, np.newaxis]
+x4 = x4[:, np.newaxis]
+x5 = x5[:, np.newaxis]
+
+y1 = y1[:, np.newaxis]
+y2 = y2[:, np.newaxis]
+y3 = y3[:, np.newaxis]
+y4 = y4[:, np.newaxis]
+y5 = y5[:, np.newaxis]
+
+
+polynomial_features1 = PolynomialFeatures(degree=3)
+x1_poly = polynomial_features1.fit_transform(x1)
+polynomial_features2 = PolynomialFeatures(degree=3)
+x2_poly = polynomial_features2.fit_transform(x2)
+polynomial_features3 = PolynomialFeatures(degree=3)
+x3_poly = polynomial_features3.fit_transform(x3)
+polynomial_features4 = PolynomialFeatures(degree=3)
+x4_poly = polynomial_features4.fit_transform(x4)
+polynomial_features5 = PolynomialFeatures(degree=3)
+x5_poly = polynomial_features5.fit_transform(x5)
+
+
+model1 = LinearRegression()
+model1.fit(x1_poly, y1)
+y1_poly_pred = model1.predict(x1_poly)
+
+model2 = LinearRegression()
+model2.fit(x2_poly, y2)
+y2_poly_pred = model2.predict(x2_poly)
+
+model3 = LinearRegression()
+model3.fit(x3_poly, y3)
+y3_poly_pred = model3.predict(x3_poly)
+
+model4 = LinearRegression()
+model4.fit(x4_poly, y4)
+y4_poly_pred = model4.predict(x4_poly)
+
+model5 = LinearRegression()
+model5.fit(x5_poly, y5)
+y5_poly_pred = model5.predict(x5_poly)
+
+print (model1.coef_)
+print (model2.coef_)
+print (model3.coef_)
+print (model4.coef_)
+print (model5.coef_)
+
+#rmse = np.sqrt(mean_squared_error(y1,y1_poly_pred))
+#r2 = r2_score(y1,y1_poly_pred)
+#print(rmse)
+#print(r2)
+
+#r2 should be as close to 1 (gives kinda confidence value
+#r2 is a measure of standard deviation
+
+sort_axis1 = operator.itemgetter(0)
+sorted_zip1 = sorted(zip(x1,y1_poly_pred), key=sort_axis1)
+x1, y1_poly_pred = zip(*sorted_zip1)
+plt.plot(x1, y1_poly_pred, color='cornflowerblue')
+
+
+sort_axis2 = operator.itemgetter(0)
+sorted_zip2 = sorted(zip(x2,y2_poly_pred), key=sort_axis2)
+x2, y2_poly_pred = zip(*sorted_zip2)
+plt.plot(x2, y2_poly_pred, color='lightskyblue')
+
+sort_axis3 = operator.itemgetter(0)
+sorted_zip3 = sorted(zip(x3,y3_poly_pred), key=sort_axis3)
+x3, y3_poly_pred = zip(*sorted_zip3)
+plt.plot(x3, y3_poly_pred, color='thistle')
+
+sort_axis4 = operator.itemgetter(0)
+sorted_zip4 = sorted(zip(x4,y4_poly_pred), key=sort_axis4)
+x4, y4_poly_pred = zip(*sorted_zip4)
+plt.plot(x4, y4_poly_pred, color='orchid')
+
+sort_axis5 = operator.itemgetter(0)
+sorted_zip5 = sorted(zip(x5,y5_poly_pred), key=sort_axis5)
+x5, y5_poly_pred = zip(*sorted_zip5)
+plt.plot(x5, y5_poly_pred, color='blueviolet')
+
+
+plt.grid()
+plt.show()
