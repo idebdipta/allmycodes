@@ -1,0 +1,60 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.pylab as pylab
+params = {'legend.fontsize': 'x-large',
+          'figure.figsize': (40, 15),
+         'axes.labelsize': 'x-large',
+         'axes.titlesize':'x-large',
+         'xtick.labelsize':'x-large',
+         'ytick.labelsize':'x-large'}
+pylab.rcParams.update(params)
+
+fig = plt.figure(figsize=(16,10))
+
+# note this: you can skip rows!
+my_data = np.genfromtxt('allsorteddataaug2017.csv', delimiter=',',skip_header=1)
+x1 = my_data[:,12]
+y1 = my_data[:,17]
+y2 = my_data[:,18]
+y3 = my_data[:,19]
+y4 = my_data[:,20]
+y5 = my_data[:,21]
+y6 = my_data[:,22]
+y7 = my_data[:,23]
+y8 = my_data[:,24]
+y9 = my_data[:,25]
+y10 = my_data[:,26]
+y11 = my_data[:,27]
+y12 = my_data[:,28]
+y13 = my_data[:,29]
+y14 = my_data[:,30]
+y15 = my_data[:,31]
+
+
+plt.plot(x1,y1, label="Day16", linewidth = '1')
+plt.plot(x1,y2, label="Day15", linewidth = '1')
+plt.plot(x1,y3, label="Day14", linewidth = '1')
+plt.plot(x1,y4, label="Day13", linewidth = '1')
+#plt.plot(x1,y1, label="Day12",linewidth = '1')
+#plt.plot(x1,y2, label="Day11", linewidth = '1')
+#plt.plot(x1,y3, label="Day10", linewidth = '1')
+#plt.plot(x1,y4, label="Day9", linewidth = '1')
+#plt.plot(x1,y1, label="Day8", linewidth = '1')
+#plt.plot(x1,y2, label="Day7", linewidth = '1')
+#plt.plot(x1,y3, label="Day6", linewidth = '1')
+#plt.plot(x1,y4, label="Day5", linewidth = '1')
+#plt.plot(x1,y1, label="Day4", linewidth = '1')
+#plt.plot(x1,y2, label="Day3", linewidth = '1')
+#plt.plot(x1,y3, label="Day2", linewidth = '1')
+#plt.plot(x1,y4, label="Day1", linewidth = '1')
+
+
+
+plt.legend()
+
+plt.ylabel('Option Value')
+plt.xlabel('Offset')
+plt.title("Option Value v/s Offset")
+
+plt.grid()
+plt.show()
