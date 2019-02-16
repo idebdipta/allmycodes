@@ -1,0 +1,86 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import operator
+
+import matplotlib.pylab as pylab
+
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.preprocessing import PolynomialFeatures
+
+
+params = {'legend.fontsize': 'x-large',
+          'figure.figsize': (40, 15),
+         'axes.labelsize': 'x-large',
+         'axes.titlesize':'x-large',
+         'xtick.labelsize':'x-large',
+         'ytick.labelsize':'x-large'}
+pylab.rcParams.update(params)
+
+fig = plt.figure(figsize=(16,10))
+
+# note this: you can skip rows!
+my_data = np.genfromtxt('13thdayfinal.csv', delimiter=',',skip_header=1)
+x1 = my_data[:,0]
+x2 = my_data[:,2]
+             
+y1 = my_data[:,1]
+y2 = my_data[:,3]
+
+
+plt.scatter(x1,y1, label="ITM", color = 'orchid', linewidth = '3')
+plt.scatter(x2,y2, label="OTM+ATM", color = 'blueviolet', linewidth = '3')
+
+
+plt.legend()
+
+# transforming the data to include another axis
+x1 = x1[:, np.newaxis]
+x2 = x2[:, np.newaxis]
+
+y1 = y1[:, np.newaxis]
+y2 = y2[:, np.newaxis]
+
+
+polynomial_features1 = PolynomialFeatures(degree=3)
+x1_poly = polynomial_features1.fit_transform(x1)
+polynomial_features2 = PolynomialFeatures(degree=3)
+x2_poly = polynomial_features2.fit_transform(x2)
+
+
+model1 = LinearRegression()
+model1.fit(x1_poly, y1)
+y1_poly_pred = model1.predict(x1_poly)
+
+model2 = LinearRegression()
+model2.fit(x2_poly, y2)
+y2_poly_pred = model2.predict(x2_poly)
+
+print (model1.coef_)
+print (model2.coef_)
+
+
+#rmse = np.sqrt(mean_squared_error(y1,y1_poly_pred))
+#r2 = r2_score(y1,y1_poly_pred)
+#print(rmse)
+#print(r2)
+
+#r2 should be as close to 1 (gives kinda confidence value
+#r2 is a measure of standard deviation
+
+sort_axis1 = operator.itemgetter(0)
+sorted_zip1 = sorted(zip(x1,y1_poly_pred), key=sort_axis1)
+x1, y1_poly_pred = zip(*sorted_zip1)
+plt.plot(x1, y1_poly_pred, color='black', linewidth = '3')
+
+
+sort_axis2 = operator.itemgetter(0)
+sorted_zip2 = sorted(zip(x2,y2_poly_pred), key=sort_axis2)
+x2, y2_poly_pred = zip(*sorted_zip2)
+plt.plot(x2, y2_poly_pred, color='black', linewidth = '3')
+
+
+
+
+plt.grid()
+plt.show()
