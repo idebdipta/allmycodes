@@ -1,0 +1,10 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.arange(0, 18, 0.25)
+y = np.arange(0, 225, 0.25)
+y = 0 + -3.76127998*x + -0.06803298*x*x
+
+fig = plt.figure()
+plt.plot(x,y)
+plt.show()
