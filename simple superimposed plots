@@ -1,0 +1,36 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.pylab as pylab
+params = {'legend.fontsize': 'x-large',
+          'figure.figsize': (40, 15),
+         'axes.labelsize': 'x-large',
+         'axes.titlesize':'x-large',
+         'xtick.labelsize':'x-large',
+         'ytick.labelsize':'x-large'}
+pylab.rcParams.update(params)
+
+fig = plt.figure(figsize=(16,10))
+
+# note this: you can skip rows!
+my_data = np.genfromtxt('shortcallbutterflyinvconv2017.csv', delimiter=',',skip_header=1)
+x1 = my_data[:,0]
+y1 = my_data[:,1]
+y2 = my_data[:,2]
+y3 = my_data[:,3]
+
+
+
+plt.plot(x1,y1, label="Middle 2 at ATM", color = 'red', linewidth = '3')
+plt.plot(x1,y2, label="Middle 2 at ITM", color = 'green', linewidth = '3')
+plt.plot(x1,y3, label="Middle 2 at OTM", color = 'blue', linewidth = '3')
+#plt.plot(x1,y4, label="Offset = -100", color = 'orchid', linewidth = '3')
+#plt.plot(x1,y5, label="Offset = -200", color = 'blueviolet', linewidth = '3')
+
+plt.legend()
+
+plt.ylabel('Net Option Value')
+plt.xlabel('Days |T-t*|')
+plt.title("Butterfly 2017 Model - short call (outer 2 sold, middle 2 bought)")
+
+plt.grid()
+plt.show()
