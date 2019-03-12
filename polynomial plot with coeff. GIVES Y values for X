@@ -1,0 +1,140 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Mar  9 17:32:02 2019
+
+@author: DEBDIPTA
+"""
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.interpolate import interp1d
+
+x1 = np.arange(0, 3.1, 0.1)
+y1 = np.arange(0, 800, 0.1)
+
+x2 = np.arange(0, 3.1, 0.1)
+y2 = np.arange(0, 800, 0.1)
+
+x3 = np.arange(0, 3.1, 0.1)
+y3 = np.arange(0, 800, 0.1)
+
+x4 = np.arange(0, 3.1, 0.1)
+y4 = np.arange(0, 800, 0.1)
+
+x5 = np.arange(0, 3.1, 0.1)
+y5 = np.arange(0, 800, 0.1)
+
+x6 = np.arange(0, 3.1, 0.1)
+y6 = np.arange(0, 800, 0.1)
+
+x7 = np.arange(0, 3.1, 0.1)
+y7 = np.arange(0, 800, 0.1)
+
+x8 = np.arange(0, 3.1, 0.1)
+y8 = np.arange(0, 800, 0.1)
+
+x9 = np.arange(0, 3.1, 0.1)
+y9 = np.arange(0, 800, 0.1)
+
+x10 = np.arange(0, 3.1, 0.1)
+y10 = np.arange(0, 800, 0.1)
+
+x11 = np.arange(0, 3.1, 0.1)
+y11 = np.arange(0, 800, 0.1)
+
+
+y1 = 78.34542578	-50.80713244*x1	+ 8.35782304*x1*x1
+y2 = 97.68820131 -60.20545693*x2 + 9.39144623*x2*x2
+y3 = 121.458224 -69.19524886*x3 +  9.81679408*x3*x3	
+y4 = 150.8551626 -75.79139089*x4  + 8.94003617*x4*x4	
+y5 = 188.1592894-78.30107968*x5  + 5.80474438*x5*x5	
+y6 = 236.1283759 -83.36158858*x6 +  4.11597573*x6*x6	
+y7 = 294.0816861 -103.28503774*x7 + 12.83478902*x7*x7	
+y8 = 361.908207 -116.3240024*x8 + 20.38984436*x8*x8	
+y9 = 436.515574 -124.19079147*x9 + 25.75993777*x9*x9	
+y10 = 512.7680159 -120.46456468*x10 +26.17669104*x10*x10	
+y11 = 598.66262158-112.81265879*x11+24.66654783*x11*x11
+
+f1 = interp1d(x1, y1)
+f2 = interp1d(x2, y2)
+f3 = interp1d(x3, y3)
+f4 = interp1d(x4, y4)
+f5 = interp1d(x5, y5)
+f6 = interp1d(x6, y6)
+f7 = interp1d(x7, y7)
+f8 = interp1d(x8, y8)
+f9 = interp1d(x9, y9)
+f10 = interp1d(x10, y10)
+f11 = interp1d(x11, y11)
+
+
+plt.plot(x1,y1, color = 'indigo', linewidth ='3')
+plt.plot(x2,y2)
+plt.plot(x3,y3)
+plt.plot(x4,y4)
+plt.plot(x5,y5)
+plt.plot(x6,y6)
+plt.plot(x7,y7)
+plt.plot(x8,y8)
+plt.plot(x9,y9)
+plt.plot(x10,y10)
+plt.plot(x11,y11)
+
+plt.show()
+fig = plt.figure()
+plt.legend()
+
+print (f1(0))
+print (f1(1))
+print (f1(2))
+print (f1(3))
+
+print (f2(0))
+print (f2(1))
+print (f2(2))
+print (f2(3))
+
+print (f3(0))
+print (f3(1))
+print (f3(2))
+print (f3(3))
+
+print (f4(0))
+print (f4(1))
+print (f4(2))
+print (f4(3))
+
+print (f5(0))
+print (f5(1))
+print (f5(2))
+print (f5(3))
+
+print (f6(0))
+print (f6(1))
+print (f6(2))
+print (f6(3))
+
+print (f7(0))
+print (f7(1))
+print (f7(2))
+print (f7(3))
+
+print (f8(0))
+print (f8(1))
+print (f8(2))
+print (f8(3))
+
+print (f9(0))
+print (f9(1))
+print (f9(2))
+print (f9(3))
+
+print (f10(0))
+print (f10(1))
+print (f10(2))
+print (f10(3))
+
+print (f11(0))
+print (f11(1))
+print (f11(2))
+print (f11(3))
