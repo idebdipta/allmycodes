@@ -1,0 +1,64 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Mar 12 17:10:47 2019
+
+@author: DEBDIPTA
+"""
+
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Mar  9 17:28:59 2019
+
+@author: DEBDIPTA
+"""
+
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.pylab as pylab
+params = {'legend.fontsize': 'x-large',
+          'figure.figsize': (40, 15),
+         'axes.labelsize': 'x-large',
+         'axes.titlesize':'x-large',
+         'xtick.labelsize':'x-large',
+         'ytick.labelsize':'x-large'}
+pylab.rcParams.update(params)
+
+fig = plt.figure(figsize=(16,10))
+
+# note this: you can skip rows!
+my_data = np.genfromtxt('butterflymaster200diff.csv', delimiter=',',skip_header=1)
+x1 = my_data[:,0]
+y1 = my_data[:,2]
+y2 = my_data[:,5]
+y3 = my_data[:,8]
+y4 = my_data[:,11]
+y5 = my_data[:,14]
+y6 = my_data[:,17]
+y7 = my_data[:,20]
+#y8 = my_data[:,23]
+#y9 = my_data[:,26]
+
+
+
+
+plt.plot(x1,y1, label="+300 from ATM", color = 'midnightblue', linewidth = '3')
+plt.plot(x1,y2, label="+200 from ATM", color = 'royalblue', linewidth = '3')
+plt.plot(x1,y3, label="+100 from ATM", color = 'cornflowerblue', linewidth = '3')
+plt.plot(x1,y4, label="0 from ATM", color = 'grey', linewidth = '3')
+plt.plot(x1,y5, label="-100 from ATM", color = 'mediumorchid', linewidth = '3')
+plt.plot(x1,y6, label="-200 from ATM", color = 'm', linewidth = '3')
+plt.plot(x1,y7, label="-300 from ATM", color = 'darkmagenta', linewidth = '3')
+#plt.plot(x1,y8, label="+300 from ATM", color = 'm', linewidth = '3')
+#plt.plot(x1,y9, label="+400 from ATM", color = 'darkmagenta', linewidth = '3')
+#plt.plot(x1,y4, label="Offset = -100", color = 'orchid', linewidth = '3')
+#plt.plot(x1,y5, label="Offset = -200", color = 'blueviolet', linewidth = '3')
+
+plt.legend()
+
+plt.ylabel('Net Option Value')
+plt.xlabel('Days |T-t*|')
+plt.title("Butterfly 2018 BankNifty Model - long call, Strikes at 200 differences")
+
+plt.legend()
+plt.grid()
+plt.show()
