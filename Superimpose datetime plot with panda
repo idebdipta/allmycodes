@@ -1,0 +1,20 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jul 18 12:17:28 2019
+
+@author: Debdipta
+"""
+
+import matplotlib.pyplot as plt
+import pandas as pd 
+
+# note this: you can skip rows!
+my_data1 = pd.read_csv('USvsIndia.csv', dayfirst=True, index_col=0)
+
+
+my_data1.plot()
+
+plt.legend()
+
+
+plt.show()
